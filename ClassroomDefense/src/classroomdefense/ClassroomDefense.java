@@ -17,6 +17,7 @@ public class ClassroomDefense {
     public static void main(String[] args) {
         System.out.println("Hello");
         System.out.println("Is it working?");
+        System.out.println("Hi?");
     }
     
 }
