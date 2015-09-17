@@ -16,7 +16,11 @@ public class ClassroomDefense {
      */
     public static void main(String[] args) {
         System.out.println("Hello");
-        System.out.println("Is it working?");
+        
+        int x;
+        for (x = 0; x < 10; x++)
+            System.out.println("Is it working?");
+        
         System.out.println("Hi?");
     }
     
