@@ -22,6 +22,7 @@ public class ClassroomDefense {
             System.out.println("Is it working?");
         
         System.out.println("Hi?");
+        ClassroomDefenseFrame frame = new ClassroomDefenseFrame();
     }
     
 }
