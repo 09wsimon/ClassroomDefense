@@ -30,6 +30,7 @@ public class ClassroomDefense {
         }
         
         System.out.println("Hi?");
+        ClassroomDefenseFrame frame = new ClassroomDefenseFrame();
     }
     
 }
