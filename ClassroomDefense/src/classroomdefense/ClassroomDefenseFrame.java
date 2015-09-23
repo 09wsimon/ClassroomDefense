@@ -5,14 +5,14 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class ClassroomDefenseFrame extends JFrame
 {
-    private static final int FRAME_WIDTH = 500;
-    private static final int FRAME_HEIGHT = 500;
+    private static final int FRAME_WIDTH = 235;
+    private static final int FRAME_HEIGHT = 505;
     private JButton easyButton;
     private JButton mediumButton;
     private JButton hardButton;
     private JLabel enterNameLabel;
-    private JLabel highScoreLabel;
-    private JLabel directionsLabel;
+    private JTextArea highScoreArea;
+    private JTextArea directionsArea;
     private JTextField nameField;
 
     public ClassroomDefenseFrame()
@@ -27,9 +27,9 @@ public class ClassroomDefenseFrame extends JFrame
     {
         this.createButtons();
         this.createTextField();
-        enterNameLabel=new JLabel("Enter your name here...");
-        highScoreLabel=new JLabel("High Score");
-        directionsLabel=new JLabel("...\n\nEnter your name and difficulty.\n\nWhen you're in the game click one of the side buttons and click a table on the map.  You'll need money to make these, and you get that by killing enemies. When you think you are ready, click Next Wave to play!\n\nThere are 10 levels\nKeep a passing grade to win!\n...");
+        enterNameLabel=new JLabel("Enter name");
+        highScoreArea=new JTextArea("High Scores\n1. Score 1\n2. Score 2\n3. Score 3\n4. Score 4\n5. Score 5\n6. Score 6\n7. Score 7\n8. Score 8\n9. Score 9\n10. Score 10\n");
+        directionsArea=new JTextArea("...\n\nEnter your name and difficulty.\n\nWhen you're in the game \nclick one of the side buttons and \nclick a table on the map.  \nYou'll need money to make these, \nand you get that by killing enemies. \nWhen you think you are ready, \nclick Next Wave to play!\n\nThere are 10 levels\nKeep a passing grade to win!\n...");
     }
     private void createButtons()
     {
@@ -73,18 +73,25 @@ public class ClassroomDefenseFrame extends JFrame
     {
         final int FIELD_WIDTH=9;
         nameField=new JTextField(FIELD_WIDTH);
-        nameField.setText("Enter Player Name");
     }
     private void createPanel()
     {
         JPanel panel=new JPanel();
+        panel.setLayout(null);
         panel.add(this.easyButton);
+        this.easyButton.setBounds(130, 10, 80, 25);
         panel.add(this.mediumButton);
+        this.mediumButton.setBounds(130, 45, 80, 25);
         panel.add(this.hardButton);
+        this.hardButton.setBounds(130, 80, 80, 25);
         panel.add(this.enterNameLabel);
+        this.enterNameLabel.setBounds(130, 125, 80, 25);
         panel.add(this.nameField);
-        panel.add(this.highScoreLabel);
-        panel.add(this.directionsLabel);
+        this.nameField.setBounds(130, 150, 80, 25);
+        panel.add(this.highScoreArea);
+        this.highScoreArea.setBounds(10, 10, 100, 180);
+        panel.add(this.directionsArea);
+        this.directionsArea.setBounds(10, 205, 200, 250);
         this.add(panel);
     }
     public static void main(String[] args)
