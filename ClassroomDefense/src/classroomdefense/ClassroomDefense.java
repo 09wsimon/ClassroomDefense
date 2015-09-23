@@ -9,6 +9,17 @@ package classroomdefense;
  *
  * @author 09wsimon
  */
+import java.awt.*;
+import java.awt.event.*;
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import javax.swing.*;
+import javax.swing.border.Border;
+
 public class ClassroomDefense {
 
     /**
@@ -34,7 +45,7 @@ public class ClassroomDefense {
     }
     
 }
-/*
+
                  // XML Read
                  
                  try {
@@ -136,4 +147,4 @@ public class ClassroomDefense {
          
         
         
-         }*/
+         }
