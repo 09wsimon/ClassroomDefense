@@ -6,12 +6,25 @@ import java.io.*;
 
 public class ClassroomDefenseFrame extends JFrame
 {
+    private String playerName;
+    private int playerScore = 0;
+    private int health = 100;
+    private int money = 0;
+    private int currentWave = 1;
+    
     private JButton easyButton;
     private JButton mediumButton;
     private JButton hardButton;
     private JButton backButton;
-    
+    private JButton weaponOneButton;
+    private JButton weaponTwoButton;
+    private JButton weaponThreeButton;
+    private JButton startWaveButton;
     private JLabel enterNameLabel;
+    private JLabel gameNameLabel;
+    private JLabel gameScoreLabel;
+    private JLabel gameMoneyLabel;
+    private JLabel gameHealthLabel;
     
     private JTextArea highScoreArea;
     private JTextArea directionsArea;
@@ -110,14 +123,26 @@ e.printStackTrace();
         mediumButton=new JButton("medium");
         hardButton=new JButton("hard");
         backButton=new JButton("back");
+        weaponOneButton=new JButton("weapon one");
+        weaponTwoButton=new JButton("weapon two");
+        weaponThreeButton=new JButton("weapon three");
+        startWaveButton=new JButton("start wave");
         ActionListener easyListener = new AddRemoveListener("easy");
         ActionListener mediumListener = new AddRemoveListener("medium");
         ActionListener hardListener = new AddRemoveListener("hard");
         ActionListener backListener = new AddRemoveListener("back");
+        ActionListener weaponOneListener = new AddRemoveListener("weapon one");
+        ActionListener weaponTwoListener = new AddRemoveListener("weapon two");
+        ActionListener weaponThreeListener = new AddRemoveListener("weapon three");
+        ActionListener startWaveListener = new AddRemoveListener("start wave");
         easyButton.addActionListener(easyListener);
         mediumButton.addActionListener(mediumListener);
         hardButton.addActionListener(hardListener);
         backButton.addActionListener(backListener);
+        weaponOneButton.addActionListener(weaponOneListener);
+        weaponTwoButton.addActionListener(weaponTwoListener);
+        weaponThreeButton.addActionListener(weaponThreeListener);
+        startWaveButton.addActionListener(startWaveListener);
     }
 
     private void createTextField()
@@ -161,6 +186,23 @@ e.printStackTrace();
         
         gameOptionsPanel.add(this.backButton);
         this.backButton.setBounds(105, 0, 80, 25);
+        
+        gameOptionsPanel.add(this.weaponOneButton);
+        this.weaponOneButton.setBounds(0, 150, 110, 35);
+        gameOptionsPanel.add(this.weaponTwoButton);
+        this.weaponTwoButton.setBounds(0, 195, 110, 35);
+        gameOptionsPanel.add(this.weaponThreeButton);
+        this.weaponThreeButton.setBounds(0, 240, 110, 35);
+        gameOptionsPanel.add(this.startWaveButton);
+        this.startWaveButton.setBounds(0, 500, 100, 50);
+//        gameOptionsPanel.add(this.gameNameLabel);
+//        this.gameNameLabel.setBounds(0, 0, 100, 25);
+//        gameOptionsPanel.add(this.gameScoreLabel);
+//        this.gameScoreLabel.setBounds(0, 25, 100, 25);
+//        gameOptionsPanel.add(this.gameHealthLabel);
+//        this.gameHealthLabel.setBounds(0, 50, 100, 25);
+//        gameOptionsPanel.add(this.gameMoneyLabel);
+//        this.gameMoneyLabel.setBounds(0, 75, 100, 25);
         
         
         this.add(gameScreenPanel);
