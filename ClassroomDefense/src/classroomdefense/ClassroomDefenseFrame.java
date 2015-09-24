@@ -2,8 +2,8 @@ package classroomdefense;
 import java.awt.Color;
 import java.awt.event.*;
 import javax.swing.*;
+import java.io.*;
 
-@SuppressWarnings("serial")
 public class ClassroomDefenseFrame extends JFrame
 {
     private JButton easyButton;
@@ -37,7 +37,21 @@ public class ClassroomDefenseFrame extends JFrame
         this.createButtons();
         this.createTextField();
         enterNameLabel=new JLabel("Enter name");
-        highScoreArea=new JTextArea("High Scores\n1. Score 1\n2. Score 2\n3. Score 3\n4. Score 4\n5. Score 5\n6. Score 6\n7. Score 7\n8. Score 8\n9. Score 9\n10. Score 10\n");
+        try { 
+String one = ""; 
+String two = ""; 
+File file = new File("scores.txt");
+FileReader fr = new FileReader(file); 
+BufferedReader in = new BufferedReader(fr); 
+while ((one = in.readLine()) != null) { 
+two = two + one +"\n"; 
+} 
+highScoreArea = new JTextArea(two); 
+} catch (FileNotFoundException ex) { 
+ex.printStackTrace(); 
+}catch (IOException e){ 
+e.printStackTrace(); 
+}
         directionsArea=new JTextArea("...\n\nEnter your name and difficulty.\n\nWhen you're in the game \nclick one of the side buttons and \nclick a table on the map.  \nYou'll need money to make these, \nand you get that by killing enemies. \nWhen you think you are ready, \nclick Next Wave to play!\n\nThere are 10 levels\nKeep a passing grade to win!\n...");
     }
     private void createButtons()
