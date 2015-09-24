@@ -44,6 +44,7 @@ public class ClassroomDefenseFrame extends JFrame
             public void actionPerformed(ActionEvent e)
             {
                 String enteredString=nameField.getText();
+                highScores.high(enteredString);
                 if (action.equals("easy"))
                 {
                     //set difficulty to easy
