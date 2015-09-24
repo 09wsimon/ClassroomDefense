@@ -10,9 +10,12 @@ import java.io.*;
  *
  * @author 09wsimon
  */
-public class highScores {
-       public static void high (String newName){
-        try{
+public class highScores
+{
+    public static void high (String newName)
+    {
+        try
+        {
             String verify, putData;
             File file = new File("scores.txt");
             String name = newName;
@@ -26,11 +29,15 @@ public class highScores {
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
             String line;
-            while( ( line = br.readLine()) != null){
+            
+            while( ( line = br.readLine()) != null)
+            {
                 System.out.println(line);
             } 
-        }catch(IOException e){
-        e.printStackTrace();
-        }    
-         } 
-}      
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+}
