@@ -38,6 +38,6 @@ public class highScores
         catch(IOException e)
         {
             e.printStackTrace();
-        }    
-    } 
-}      
+        }
+    }
+}
