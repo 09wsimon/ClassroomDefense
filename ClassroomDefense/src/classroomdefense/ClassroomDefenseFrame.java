@@ -1,25 +1,34 @@
 package classroomdefense;
+import java.awt.Color;
 import java.awt.event.*;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class ClassroomDefenseFrame extends JFrame
 {
-    private static final int FRAME_WIDTH = 235;
-    private static final int FRAME_HEIGHT = 505;
     private JButton easyButton;
     private JButton mediumButton;
     private JButton hardButton;
+    private JButton backButton;
+    
     private JLabel enterNameLabel;
+    
     private JTextArea highScoreArea;
     private JTextArea directionsArea;
+    
     private JTextField nameField;
+    
+    private JPanel homePanel;
+    private JPanel gameScreenPanel;
+    private JPanel gameOptionsPanel;
+    
+    private JFrame cdf = this;
 
     public ClassroomDefenseFrame()
     {
         this.createComponents();
-        this.createPanel();
-        this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        this.createPanels();
+        this.setSize(235, 505);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
@@ -47,26 +56,53 @@ public class ClassroomDefenseFrame extends JFrame
                 if (action.equals("easy"))
                 {
                     //set difficulty to easy
+//                    remove(homePanel);
+//                    add(gameScreenPanel, "Left");
+//                    add(gameOptionsPanel, "Right");
+//                    validate();
+//                    repaint();
+                    homePanel.setVisible(false);
+                    gameScreenPanel.setVisible(true);
+                    gameOptionsPanel.setVisible(true);
+                    cdf.setSize(710, 700);
                 }
                 else if (action.equals("medium"))
                 {
                     //set difficulty to medium
+                    homePanel.setVisible(false);
+                    gameScreenPanel.setVisible(true);
+                    gameOptionsPanel.setVisible(true);
+                    cdf.setSize(710, 700);
                 }
                 else if (action.equals("hard"))
                 {
                     //set difficulty to hard
+                    homePanel.setVisible(false);
+                    gameScreenPanel.setVisible(true);
+                    gameOptionsPanel.setVisible(true);
+                    cdf.setSize(710, 700);
+                }
+                else if (action.equals("back"))
+                {
+                    gameScreenPanel.setVisible(false);
+                    gameOptionsPanel.setVisible(false);
+                    homePanel.setVisible(true);
+                    cdf.setSize(235, 505);
                 }
             }
         }
         easyButton=new JButton("easy");
         mediumButton=new JButton("medium");
         hardButton=new JButton("hard");
+        backButton=new JButton("back");
         ActionListener easyListener = new AddRemoveListener("easy");
         ActionListener mediumListener = new AddRemoveListener("medium");
         ActionListener hardListener = new AddRemoveListener("hard");
+        ActionListener backListener = new AddRemoveListener("back");
         easyButton.addActionListener(easyListener);
         mediumButton.addActionListener(mediumListener);
         hardButton.addActionListener(hardListener);
+        backButton.addActionListener(backListener);
     }
 
     private void createTextField()
@@ -74,25 +110,47 @@ public class ClassroomDefenseFrame extends JFrame
         final int FIELD_WIDTH=9;
         nameField=new JTextField(FIELD_WIDTH);
     }
-    private void createPanel()
+    private void createPanels()
     {
-        JPanel panel=new JPanel();
-        panel.setLayout(null);
-        panel.add(this.easyButton);
+        homePanel=new JPanel();
+        homePanel.setLayout(null);
+        
+        gameScreenPanel=new JPanel();
+        gameScreenPanel.setBackground(Color.blue);
+        gameScreenPanel.setLayout(null);
+        gameScreenPanel.setVisible(false);
+        gameScreenPanel.setBounds(0, 0, 500, 700);
+        
+        gameOptionsPanel=new JPanel();
+        gameOptionsPanel.setLayout(null);
+        gameOptionsPanel.setBackground(Color.red);
+        gameOptionsPanel.setLayout(null);
+        gameOptionsPanel.setVisible(false);
+        gameOptionsPanel.setBounds(510, 0, 200, 700);
+
+        
+        homePanel.add(this.easyButton);
         this.easyButton.setBounds(130, 10, 80, 25);
-        panel.add(this.mediumButton);
+        homePanel.add(this.mediumButton);
         this.mediumButton.setBounds(130, 45, 80, 25);
-        panel.add(this.hardButton);
+        homePanel.add(this.hardButton);
         this.hardButton.setBounds(130, 80, 80, 25);
-        panel.add(this.enterNameLabel);
+        homePanel.add(this.enterNameLabel);
         this.enterNameLabel.setBounds(130, 125, 80, 25);
-        panel.add(this.nameField);
+        homePanel.add(this.nameField);
         this.nameField.setBounds(130, 150, 80, 25);
-        panel.add(this.highScoreArea);
+        homePanel.add(this.highScoreArea);
         this.highScoreArea.setBounds(10, 10, 100, 180);
-        panel.add(this.directionsArea);
+        homePanel.add(this.directionsArea);
         this.directionsArea.setBounds(10, 205, 200, 250);
-        this.add(panel);
+        
+        gameOptionsPanel.add(this.backButton);
+        this.backButton.setBounds(105, 0, 80, 25);
+        
+        
+        this.add(gameScreenPanel);
+        this.add(gameOptionsPanel);
+        this.add(homePanel);
     }
     public static void main(String[] args)
     {
