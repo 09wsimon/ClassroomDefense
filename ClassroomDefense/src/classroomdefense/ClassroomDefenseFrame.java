@@ -146,6 +146,14 @@ public class ClassroomDefenseFrame extends JFrame
                 else if (action.equals("startwave"))
                 {
                     wave=new Wave(currentWave, difficulty);
+                    for (int i=0;i<wave.getEnemyCount();i++)
+                    {
+                        // set position, direction, and speed
+                        // of wave.enemies()[i], then delay a
+                        // moment before the next increment
+                    }
+                    //if player survives round:
+                    currentWave++;
                 }
             }
         }
