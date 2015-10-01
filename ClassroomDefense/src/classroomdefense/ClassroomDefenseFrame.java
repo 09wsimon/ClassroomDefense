@@ -106,7 +106,8 @@ public class ClassroomDefenseFrame extends JFrame
                     cdf.setSize(960, 750);
                     cdf.setTitle("Duck Defense");
                     playerName = nameField.getText();
-                    gameNameLabel.setText(playerName);*/
+                    gameNameLabel.setText(playerName);
+                    difficulty = "easy";
                 }
                 else if (action.equals("medium"))
                 {
@@ -125,10 +126,8 @@ public class ClassroomDefenseFrame extends JFrame
                     /*homePanel.setVisible(false);
                     gameScreenPanel.setVisible(true);
                     gameOptionsPanel.setVisible(true);
-                    cdf.setSize(960, 750);
-                    cdf.setTitle("Duck Defense");
-                    playerName = nameField.getText();
-                    gameNameLabel.setText(playerName)*/;
+                    cdf.setSize(710, 700);
+                    difficulty="hard";
                 }
                 
                 /**/homePanel.setVisible(false);
@@ -167,8 +166,16 @@ public class ClassroomDefenseFrame extends JFrame
                         // of wave.enemies()[i], then delay a
                         // moment before the next increment
                     }
-                    //if player survives round:
-                    currentWave++;
+                    if (health>0)
+                    {
+                        currentWave++;
+                        //money+some
+                        //score+some
+                    }
+                    else
+                    {
+                        //youlose
+                    }
                 }
                 
                 
