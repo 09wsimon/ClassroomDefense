@@ -20,6 +20,8 @@ public class ClassroomDefenseFrame extends JFrame
     private JButton weaponTwoButton;
     private JButton weaponThreeButton;
     private JButton startWaveButton;
+    private JButton gameBoard;
+    //ImageIcon board = new ImageIcon("images/classroom_defense1.png");
     private JLabel enterNameLabel;
     private JLabel gameNameLabel;
     private JLabel gameScoreLabel;
@@ -96,30 +98,46 @@ public class ClassroomDefenseFrame extends JFrame
                 if (action.equals("easy"))
                 {
                     //set difficulty to easy
-                    homePanel.setVisible(false);
+                    /*homePanel.setVisible(false);
                     gameScreenPanel.setVisible(true);
                     gameOptionsPanel.setVisible(true);
-                    cdf.setSize(710, 700);
+                    cdf.setSize(960, 750);
+                    cdf.setTitle("Duck Defense");
                     playerName = nameField.getText();
-                    gameNameLabel.setText(playerName);
+                    gameNameLabel.setText(playerName);*/
                 }
                 else if (action.equals("medium"))
                 {
                     //set difficulty to medium
-                    homePanel.setVisible(false);
+                    /*homePanel.setVisible(false);
                     gameScreenPanel.setVisible(true);
                     gameOptionsPanel.setVisible(true);
-                    cdf.setSize(710, 700);
+                    cdf.setSize(960, 750);
+                    cdf.setTitle("Duck Defense");
+                    playerName = nameField.getText();
+                    gameNameLabel.setText(playerName);*/
                 }
                 else if (action.equals("hard"))
                 {
                     //set difficulty to hard
-                    homePanel.setVisible(false);
+                    /*homePanel.setVisible(false);
                     gameScreenPanel.setVisible(true);
                     gameOptionsPanel.setVisible(true);
-                    cdf.setSize(710, 700);
+                    cdf.setSize(960, 750);
+                    cdf.setTitle("Duck Defense");
+                    playerName = nameField.getText();
+                    gameNameLabel.setText(playerName)*/;
                 }
-                else if (action.equals("back"))
+                
+                /**/homePanel.setVisible(false);
+                gameScreenPanel.setVisible(true);
+                gameOptionsPanel.setVisible(true);
+                cdf.setSize(960, 750);
+                cdf.setTitle("Duck Defense");
+                playerName = nameField.getText();
+                gameNameLabel.setText(playerName);
+                
+                if (action.equals("back"))
                 {
                     gameScreenPanel.setVisible(false);
                     gameOptionsPanel.setVisible(false);
@@ -142,8 +160,12 @@ public class ClassroomDefenseFrame extends JFrame
                 {
                     
                 }
+                
+                
             }
         }
+        ImageIcon board = new ImageIcon("images/classroom_defense1.png");
+        gameBoard = new JButton(board);
         easyButton=new JButton("easy");
         mediumButton=new JButton("medium");
         hardButton=new JButton("hard");
@@ -181,17 +203,19 @@ public class ClassroomDefenseFrame extends JFrame
         homePanel.setLayout(null);
         
         gameScreenPanel=new JPanel();
-        gameScreenPanel.setBackground(Color.blue);
+        //gameScreenPanel.setBackground(Color.blue);
         gameScreenPanel.setLayout(null);
         gameScreenPanel.setVisible(false);
-        gameScreenPanel.setBounds(0, 0, 500, 700);
+        gameScreenPanel.setBounds(0, 0, 750, 750);
+        gameScreenPanel.add(this.gameBoard);
+        this.gameBoard.setBounds(0,0,750,750);
         
         gameOptionsPanel=new JPanel();
         gameOptionsPanel.setLayout(null);
         gameOptionsPanel.setBackground(Color.red);
         gameOptionsPanel.setLayout(null);
         gameOptionsPanel.setVisible(false);
-        gameOptionsPanel.setBounds(510, 0, 200, 700);
+        gameOptionsPanel.setBounds(760, 0, 200, 750);
 
         
         homePanel.add(this.easyButton);
