@@ -107,7 +107,7 @@ public class ClassroomDefenseFrame extends JFrame
                     cdf.setTitle("Duck Defense");
                     playerName = nameField.getText();
                     gameNameLabel.setText(playerName);
-                    difficulty = "easy";
+                    difficulty = "easy";*/
                 }
                 else if (action.equals("medium"))
                 {
@@ -127,7 +127,7 @@ public class ClassroomDefenseFrame extends JFrame
                     gameScreenPanel.setVisible(true);
                     gameOptionsPanel.setVisible(true);
                     cdf.setSize(710, 700);
-                    difficulty="hard";
+                    difficulty="hard";*/
                 }
                 
                 /**/homePanel.setVisible(false);
@@ -177,10 +177,9 @@ public class ClassroomDefenseFrame extends JFrame
                         //youlose
                     }
                 }
-                
-                
-            }
+            }     
         }
+    
         ImageIcon board = new ImageIcon("images/classroom_defense1.png");
         gameBoard = new JButton(board);
         easyButton=new JButton("easy");
