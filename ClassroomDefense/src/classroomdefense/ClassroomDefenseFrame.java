@@ -152,8 +152,16 @@ public class ClassroomDefenseFrame extends JFrame
                         // of wave.enemies()[i], then delay a
                         // moment before the next increment
                     }
-                    //if player survives round:
-                    currentWave++;
+                    if (health>0)
+                    {
+                        currentWave++;
+                        //money+some
+                        //score+some
+                    }
+                    else
+                    {
+                        //youlose
+                    }
                 }
             }
         }
