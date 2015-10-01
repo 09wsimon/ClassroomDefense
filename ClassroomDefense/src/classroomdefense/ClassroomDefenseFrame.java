@@ -7,10 +7,12 @@ import java.io.*;
 public class ClassroomDefenseFrame extends JFrame
 {
     private String playerName;
+    private String difficulty;
     private int playerScore = 0;
     private int health = 100;
     private int money = 0;
     private int currentWave = 1;
+    private Wave wave;
     
     private JButton easyButton;
     private JButton mediumButton;
@@ -158,7 +160,15 @@ public class ClassroomDefenseFrame extends JFrame
                 }
                 else if (action.equals("startwave"))
                 {
-                    
+                    wave=new Wave(currentWave, difficulty);
+                    for (int i=0;i<wave.getEnemyCount();i++)
+                    {
+                        // set position, direction, and speed
+                        // of wave.enemies()[i], then delay a
+                        // moment before the next increment
+                    }
+                    //if player survives round:
+                    currentWave++;
                 }
                 
                 
