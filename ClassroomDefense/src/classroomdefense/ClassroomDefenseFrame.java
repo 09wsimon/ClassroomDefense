@@ -7,10 +7,12 @@ import java.io.*;
 public class ClassroomDefenseFrame extends JFrame
 {
     private String playerName;
+    private String difficulty;
     private int playerScore = 0;
     private int health = 100;
     private int money = 0;
     private int currentWave = 1;
+    private Wave wave;
     
     private JButton easyButton;
     private JButton mediumButton;
@@ -102,6 +104,7 @@ public class ClassroomDefenseFrame extends JFrame
                     cdf.setSize(710, 700);
                     playerName = nameField.getText();
                     gameNameLabel.setText(playerName);
+                    difficulty = "easy";
                 }
                 else if (action.equals("medium"))
                 {
@@ -110,6 +113,7 @@ public class ClassroomDefenseFrame extends JFrame
                     gameScreenPanel.setVisible(true);
                     gameOptionsPanel.setVisible(true);
                     cdf.setSize(710, 700);
+                    difficulty="medium";
                 }
                 else if (action.equals("hard"))
                 {
@@ -118,6 +122,7 @@ public class ClassroomDefenseFrame extends JFrame
                     gameScreenPanel.setVisible(true);
                     gameOptionsPanel.setVisible(true);
                     cdf.setSize(710, 700);
+                    difficulty="hard";
                 }
                 else if (action.equals("back"))
                 {
@@ -140,7 +145,7 @@ public class ClassroomDefenseFrame extends JFrame
                 }
                 else if (action.equals("startwave"))
                 {
-                    
+                    wave=new Wave(currentWave, difficulty);
                 }
             }
         }
