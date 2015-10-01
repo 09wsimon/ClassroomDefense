@@ -1,12 +1,15 @@
 package classroomdefense;
 import java.awt.Color;
+import java.awt.Rectangle;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 
 public class ClassroomDefenseFrame extends JFrame
 {
-    private String playerName;
+    JButton [] tz = new JButton[225];
+    Timer tim;
+        private String playerName;
     private String difficulty;
     private int playerScore = 0;
     private int health = 100;
@@ -145,6 +148,16 @@ public class ClassroomDefenseFrame extends JFrame
                 }
                 else if (action.equals("startwave"))
                 {
+                    tim = new Timer(1000,this);
+                    for (int x = 1; x <50; x++)
+                    {
+                       
+                        tz[x] = new JButton(""+x);
+            add(tz[x]);
+            tz[x].setBounds(new Rectangle(x*10,70,50,50));
+            
+                    }
+                    
                     wave=new Wave(currentWave, difficulty);
                 }
             }
