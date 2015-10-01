@@ -17,12 +17,25 @@ public class Wave
         this.waveNumber=waveNumber;
         this.difficulty=difficulty;
     }
-    public void spawnEnemies()
+    public Enemy[] enemies()
     {
         enemies = new Enemy[enemyCount];
         for (int i=0;i<enemyCount;i++)
         {
             enemies[i] = new Enemy(enemyHealth, enemySpeed);
         }
+        return enemies;
+    }
+    public int getEnemyCount()
+    {
+        return enemyCount;
+    }
+    public int getEnemyHealth()
+    {
+        return enemyHealth;
+    }
+    public int getEnemySpeed()
+    {
+        return enemySpeed;
     }
 }
