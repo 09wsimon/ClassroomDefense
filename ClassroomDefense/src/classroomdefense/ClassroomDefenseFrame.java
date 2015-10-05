@@ -1,5 +1,6 @@
 package classroomdefense;
 import java.awt.Color;
+import java.awt.Rectangle;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
@@ -107,7 +108,7 @@ public class ClassroomDefenseFrame extends JFrame
                     cdf.setTitle("Duck Defense");
                     playerName = nameField.getText();
                     gameNameLabel.setText(playerName);
-                    difficulty = "easy";*/
+                    difficulty = "easy";
                 }
                 else if (action.equals("medium"))
                 {
@@ -160,6 +161,18 @@ public class ClassroomDefenseFrame extends JFrame
                 else if (action.equals("startwave"))
                 {
                     wave=new Wave(currentWave, difficulty);
+                    
+                    tim = new Timer(1000,this);
+                    for (int x = 1; x <50; x++)
+                    {
+                       
+                        tz[x] = new JButton(""+x);
+            add(tz[x]);
+            tz[x].setBounds(new Rectangle(x*10,70,50,50));
+            
+                    }
+                    
+                    
                     for (int i=0;i<wave.getEnemyCount();i++)
                     {
                         // set position, direction, and speed
@@ -177,9 +190,10 @@ public class ClassroomDefenseFrame extends JFrame
                         //youlose
                     }
                 }
-            }     
+                
+                
+            }
         }
-    
         ImageIcon board = new ImageIcon("images/classroom_defense1.png");
         gameBoard = new JButton(board);
         easyButton=new JButton("easy");
