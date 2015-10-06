@@ -56,32 +56,32 @@ public class ClassroomDefenseFrame extends JFrame
         this.createButtons();
         this.createTextField();
         enterNameLabel=new JLabel("Enter name");
-        gameNameLabel=new JLabel("Name: "+playerName);
-        gameScoreLabel=new JLabel("Score: "+playerScore);
-        gameHealthLabel=new JLabel("Health: "+health);
-        gameMoneyLabel=new JLabel("$"+money);
-        gameWaveLabel=new JLabel("Wave: "+currentWave);
-        try 
-        { 
-            String one = ""; 
-            String two = ""; 
-            File file = new File("scores.txt");
-            FileReader fr = new FileReader(file); 
-            BufferedReader in = new BufferedReader(fr); 
-            while ((one = in.readLine()) != null) 
-            { 
-                two = two + one +"\n"; 
-            } 
-            highScoreArea = new JTextArea(two); 
-        }
-        catch (FileNotFoundException ex) 
-        { 
-            ex.printStackTrace(); 
-        }
-        catch (IOException e)
-        { 
-            e.printStackTrace(); 
-        }
+        gameNameLabel=new JLabel("Name: " + playerName);
+        gameScoreLabel=new JLabel("Score: " + playerScore);
+        gameHealthLabel=new JLabel("Health: " + health);
+        gameMoneyLabel=new JLabel("$" + money);
+        gameWaveLabel=new JLabel("Wave: " + currentWave);
+        /**///try 
+        //{ 
+            //String one = "";
+            //String two = "";
+            //File file = new File("scores.txt");
+            //FileReader fr = new FileReader(file);
+            //BufferedReader in = new BufferedReader(fr);
+            //while ((one = in.readLine()) != null)
+            //{
+                //two = "\n";
+            //}
+            highScoreArea = new JTextArea("\n");
+        //}
+        //catch (FileNotFoundException ex)
+        //{
+        //    ex.printStackTrace();
+        //}
+        //catch (IOException e)
+        //{
+        //    e.printStackTrace();
+        //}
         directionsArea=new JTextArea("...\n\nEnter your name and difficulty.\n\nWhen you're in the game \nclick one of the side buttons and \nclick a table on the map.  \nYou'll need money to make these, \nand you get that by killing enemies. \nWhen you think you are ready, \nclick Next Wave to play!\n\nThere are 10 levels\nKeep a passing grade to win!\n...");   
     }
     private void createButtons()
