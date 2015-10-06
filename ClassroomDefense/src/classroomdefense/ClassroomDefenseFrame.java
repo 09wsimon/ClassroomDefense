@@ -162,13 +162,13 @@ public class ClassroomDefenseFrame extends JFrame
                 {
                     wave=new Wave(currentWave, difficulty);
                     
-                    tim = new Timer(1000,this);
+                    //tim = new Timer(1000,this);
                     for (int x = 1; x <50; x++)
                     {
                        
-                        tz[x] = new JButton(""+x);
-            add(tz[x]);
-            tz[x].setBounds(new Rectangle(x*10,70,50,50));
+                        //tz[x] = new JButton(""+x);
+            //add(tz[x]);
+            //tz[x].setBounds(new Rectangle(x*10,70,50,50));
             
                     }
                     
