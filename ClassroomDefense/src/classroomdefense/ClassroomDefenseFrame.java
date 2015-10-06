@@ -96,10 +96,12 @@ public class ClassroomDefenseFrame extends JFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                String enteredString=nameField.getText();
-                highScores.high(enteredString);
+                //String enteredString=nameField.getText();
+                //highScores.high(enteredString);
                 if (action.equals("easy"))
                 {
+                    String enteredString=nameField.getText();
+                    highScores.high(enteredString);
                     //set difficulty to easy
                     /*homePanel.setVisible(false);
                     gameScreenPanel.setVisible(true);
@@ -108,10 +110,12 @@ public class ClassroomDefenseFrame extends JFrame
                     cdf.setTitle("Duck Defense");
                     playerName = nameField.getText();
                     gameNameLabel.setText(playerName);
-                    difficulty = "easy";
+                    difficulty = "easy";*/
                 }
                 else if (action.equals("medium"))
                 {
+                    String enteredString=nameField.getText();
+                    highScores.high(enteredString);
                     //set difficulty to medium
                     /*homePanel.setVisible(false);
                     gameScreenPanel.setVisible(true);
@@ -123,6 +127,8 @@ public class ClassroomDefenseFrame extends JFrame
                 }
                 else if (action.equals("hard"))
                 {
+                    String enteredString=nameField.getText();
+                    highScores.high(enteredString);
                     //set difficulty to hard
                     /*homePanel.setVisible(false);
                     gameScreenPanel.setVisible(true);
@@ -162,15 +168,13 @@ public class ClassroomDefenseFrame extends JFrame
                 {
                     wave=new Wave(currentWave, difficulty);
                     
-                    tim = new Timer(1000,this);
+                    /*tim = new Timer(1000,this);
                     for (int x = 1; x <50; x++)
                     {
-                       
                         tz[x] = new JButton(""+x);
-            add(tz[x]);
-            tz[x].setBounds(new Rectangle(x*10,70,50,50));
-            
-                    }
+                        add(tz[x]);
+                        tz[x].setBounds(new Rectangle(x*10,70,50,50));
+                    }*/
                     
                     
                     for (int i=0;i<wave.getEnemyCount();i++)
