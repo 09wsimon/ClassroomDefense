@@ -1,9 +1,11 @@
 package classroomdefense;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
+import java.util.*;
 
 public class ClassroomDefenseFrame extends JFrame
 {
@@ -23,8 +25,9 @@ public class ClassroomDefenseFrame extends JFrame
     private JButton weaponTwoButton;
     private JButton weaponThreeButton;
     private JButton startWaveButton;
-    private JButton gameBoard;
-    //ImageIcon board = new ImageIcon("images/classroom_defense1.png");
+    private JLabel gameBoard;
+    private ArrayList<JButton> towerSpaces;
+    ImageIcon board = new ImageIcon("images/classroom_defense1.png");
     private JLabel enterNameLabel;
     private JLabel gameNameLabel;
     private JLabel gameScoreLabel;
@@ -101,10 +104,10 @@ public class ClassroomDefenseFrame extends JFrame
                 if (action.equals("easy"))
                 {
                     //set difficulty to easy
-                    /*homePanel.setVisible(false);
+                    homePanel.setVisible(false);
                     gameScreenPanel.setVisible(true);
                     gameOptionsPanel.setVisible(true);
-                    cdf.setSize(960, 750);
+                    cdf.setSize(960, 790);
                     cdf.setTitle("Duck Defense");
                     playerName = nameField.getText();
                     gameNameLabel.setText(playerName);
@@ -113,28 +116,28 @@ public class ClassroomDefenseFrame extends JFrame
                 else if (action.equals("medium"))
                 {
                     //set difficulty to medium
-                    /*homePanel.setVisible(false);
+                    homePanel.setVisible(false);
                     gameScreenPanel.setVisible(true);
                     gameOptionsPanel.setVisible(true);
-                    cdf.setSize(960, 750);
+                    cdf.setSize(960, 790);
                     cdf.setTitle("Duck Defense");
                     playerName = nameField.getText();
-                    gameNameLabel.setText(playerName);*/
+                    gameNameLabel.setText(playerName);
                 }
                 else if (action.equals("hard"))
                 {
                     //set difficulty to hard
-                    /*homePanel.setVisible(false);
+                    homePanel.setVisible(false);
                     gameScreenPanel.setVisible(true);
                     gameOptionsPanel.setVisible(true);
-                    cdf.setSize(710, 700);
-                    difficulty="hard";*/
+                    cdf.setSize(960, 790);
+                    difficulty="hard";
                 }
                 
                 /**/homePanel.setVisible(false);
                 gameScreenPanel.setVisible(true);
                 gameOptionsPanel.setVisible(true);
-                cdf.setSize(960, 750);
+                cdf.setSize(960, 790);
                 cdf.setTitle("Duck Defense");
                 playerName = nameField.getText();
                 gameNameLabel.setText(playerName);
@@ -162,17 +165,6 @@ public class ClassroomDefenseFrame extends JFrame
                 {
                     wave=new Wave(currentWave, difficulty);
                     
-                    tim = new Timer(1000,this);
-                    for (int x = 1; x <50; x++)
-                    {
-                       
-                        tz[x] = new JButton(""+x);
-            add(tz[x]);
-            tz[x].setBounds(new Rectangle(x*10,70,50,50));
-            
-                    }
-                    
-                    
                     for (int i=0;i<wave.getEnemyCount();i++)
                     {
                         // set position, direction, and speed
@@ -195,7 +187,39 @@ public class ClassroomDefenseFrame extends JFrame
             }
         }
         ImageIcon board = new ImageIcon("images/classroom_defense1.png");
-        gameBoard = new JButton(board);
+        gameBoard = new JLabel(board);
+        
+        towerSpaces = new ArrayList(162);
+        int x = 0;
+        int y = 0;
+        int w = 50;
+        int h = 50;
+        for (int i=0;i<162;i++)
+        {
+            towerSpaces.add(new JButton(""+i));
+            towerSpaces.get(i).setBounds(x, y, w, h);
+            towerSpaces.get(i).setContentAreaFilled(false);
+            towerSpaces.get(i).setFont(new Font("Arial", Font.PLAIN, 9));
+            x=x+50;
+            if (x==750)
+            {
+                x=0;
+                y=y+50;
+            }
+            if (y<300&&x==150)
+            {           
+                x=x+150;
+            }
+            else if (y<450&&x==150)
+            {    
+                x=x+450;
+            }
+            else if (y>=450&&x==450)
+            {    
+                x=x+150;
+            }
+        }
+        
         easyButton=new JButton("easy");
         mediumButton=new JButton("medium");
         hardButton=new JButton("hard");
@@ -233,12 +257,16 @@ public class ClassroomDefenseFrame extends JFrame
         homePanel.setLayout(null);
         
         gameScreenPanel=new JPanel();
-        //gameScreenPanel.setBackground(Color.blue);
         gameScreenPanel.setLayout(null);
         gameScreenPanel.setVisible(false);
         gameScreenPanel.setBounds(0, 0, 750, 750);
         gameScreenPanel.add(this.gameBoard);
         this.gameBoard.setBounds(0,0,750,750);
+        for (int i=0;i<towerSpaces.size();i++)
+        {
+            gameScreenPanel.add(towerSpaces.get(i));
+            gameScreenPanel.setComponentZOrder(towerSpaces.get(i), 0);
+        }
         
         gameOptionsPanel=new JPanel();
         gameOptionsPanel.setLayout(null);
