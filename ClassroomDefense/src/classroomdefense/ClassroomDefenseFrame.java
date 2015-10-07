@@ -99,48 +99,23 @@ public class ClassroomDefenseFrame extends JFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                String enteredString=nameField.getText();
-                highScores.high(enteredString);
+
                 if (action.equals("easy"))
                 {
-                    //set difficulty to easy
-                    homePanel.setVisible(false);
-                    gameScreenPanel.setVisible(true);
-                    gameOptionsPanel.setVisible(true);
-                    cdf.setSize(960, 790);
-                    cdf.setTitle("Duck Defense");
-                    playerName = nameField.getText();
-                    gameNameLabel.setText(playerName);
+                    startGame();
                     difficulty = "easy";
                 }
                 else if (action.equals("medium"))
                 {
-                    //set difficulty to medium
-                    homePanel.setVisible(false);
-                    gameScreenPanel.setVisible(true);
-                    gameOptionsPanel.setVisible(true);
-                    cdf.setSize(960, 790);
-                    cdf.setTitle("Duck Defense");
-                    playerName = nameField.getText();
-                    gameNameLabel.setText(playerName);
+                    startGame();
+                    difficulty="medium";
                 }
                 else if (action.equals("hard"))
                 {
-                    //set difficulty to hard
-                    homePanel.setVisible(false);
-                    gameScreenPanel.setVisible(true);
-                    gameOptionsPanel.setVisible(true);
-                    cdf.setSize(960, 790);
+                    startGame();
                     difficulty="hard";
                 }
                 
-                /**/homePanel.setVisible(false);
-                gameScreenPanel.setVisible(true);
-                gameOptionsPanel.setVisible(true);
-                cdf.setSize(960, 790);
-                cdf.setTitle("Duck Defense");
-                playerName = nameField.getText();
-                gameNameLabel.setText(playerName);
                 
                 if (action.equals("back"))
                 {
@@ -165,6 +140,8 @@ public class ClassroomDefenseFrame extends JFrame
                 {
                     wave=new Wave(currentWave, difficulty);
                     
+                    health=0;
+                    
                     for (int i=0;i<wave.getEnemyCount();i++)
                     {
                         // set position, direction, and speed
@@ -180,6 +157,8 @@ public class ClassroomDefenseFrame extends JFrame
                     else
                     {
                         //youlose
+                        String enteredString=nameField.getText();
+                        highScores.high(enteredString);
                     }
                 }
                 
@@ -317,6 +296,16 @@ public class ClassroomDefenseFrame extends JFrame
         this.add(gameScreenPanel);
         this.add(gameOptionsPanel);
         this.add(homePanel);
+    }
+    public void startGame()
+    {
+        homePanel.setVisible(false);
+        gameScreenPanel.setVisible(true);
+        gameOptionsPanel.setVisible(true);
+        cdf.setSize(960, 790);
+        cdf.setTitle("Duck Defense");
+        playerName = nameField.getText();
+        gameNameLabel.setText(playerName);
     }
     public static void main(String[] args)
     {
