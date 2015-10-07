@@ -299,7 +299,7 @@ public class ClassroomDefenseFrame extends JFrame
         
         gameOptionsPanel=new JPanel();
         gameOptionsPanel.setLayout(null);
-        gameOptionsPanel.setBackground(Color.red);
+        gameOptionsPanel.setBackground(Color.gray);
         gameOptionsPanel.setLayout(null);
         gameOptionsPanel.setVisible(false);
         gameOptionsPanel.setBounds(760, 0, 200, 750);
