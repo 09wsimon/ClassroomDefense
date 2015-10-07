@@ -64,8 +64,8 @@ public class ClassroomDefenseFrame extends JFrame
         gameHealthLabel=new JLabel("Health: "+health);
         gameMoneyLabel=new JLabel("$"+money);
         gameWaveLabel=new JLabel("Wave: "+currentWave);
-        /**/try
-        {
+        try 
+        { 
             String one = ""; 
             String two = ""; 
             File file = new File("scores.txt");
@@ -73,10 +73,9 @@ public class ClassroomDefenseFrame extends JFrame
             BufferedReader in = new BufferedReader(fr); 
             while ((one = in.readLine()) != null) 
             { 
-                two = two + one +"\n";
-            }
-            highScoreArea = new JTextArea(two);
-            highScoreArea.setEditable(false);
+                two = two + one +"\n"; 
+            } 
+            highScoreArea = new JTextArea(two); 
         }
         catch (FileNotFoundException ex) 
         { 
@@ -85,9 +84,8 @@ public class ClassroomDefenseFrame extends JFrame
         catch (IOException e)
         { 
             e.printStackTrace(); 
-        }/**/
+        }
         directionsArea=new JTextArea("...\n\nEnter your name and difficulty.\n\nWhen you're in the game \nclick one of the side buttons and \nclick a table on the map.  \nYou'll need money to make these, \nand you get that by killing enemies. \nWhen you think you are ready, \nclick Next Wave to play!\n\nThere are 10 levels\nKeep a passing grade to win!\n...");   
-        directionsArea.setEditable(false);
     }
     private void createButtons()
     {
@@ -101,51 +99,23 @@ public class ClassroomDefenseFrame extends JFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
+
                 if (action.equals("easy"))
                 {
-                    //set difficulty to easy
-                    /*homePanel.setVisible(false);
-                    gameScreenPanel.setVisible(true);
-                    gameOptionsPanel.setVisible(true);
-                    cdf.setSize(960, 790);
-                    cdf.setTitle("Duck Defense");
-                    playerName = nameField.getText();
-                    gameNameLabel.setText(playerName);*/
+                    startGame();
                     difficulty = "easy";
                 }
                 else if (action.equals("medium"))
                 {
-                    //set difficulty to medium
-                    /*homePanel.setVisible(false);
-                    gameScreenPanel.setVisible(true);
-                    gameOptionsPanel.setVisible(true);
-                    cdf.setSize(960, 790);
-                    cdf.setTitle("Duck Defense");
-                    playerName = nameField.getText();
-                    gameNameLabel.setText(playerName);*/
-                    difficulty = "medium";
+                    startGame();
+                    difficulty="medium";
                 }
                 else if (action.equals("hard"))
                 {
-                    //set difficulty to hard
-                    /*homePanel.setVisible(false);
-                    gameScreenPanel.setVisible(true);
-                    gameOptionsPanel.setVisible(true);
-                    cdf.setSize(960, 790);
-                    cdf.setTitle("Duck Defense");
-                    playerName = nameField.getText();
-                    gameNameLabel.setText(playerName);*/
+                    startGame();
                     difficulty="hard";
                 }
                 
-                /**/
-                homePanel.setVisible(false);
-                gameScreenPanel.setVisible(true);
-                gameOptionsPanel.setVisible(true);
-                cdf.setSize(960, 790);
-                cdf.setTitle("Duck Defense");
-                playerName = nameField.getText();
-                gameNameLabel.setText(playerName);
                 
                 if (action.equals("back"))
                 {
@@ -170,6 +140,8 @@ public class ClassroomDefenseFrame extends JFrame
                 {
                     wave=new Wave(currentWave, difficulty);
                     
+                    health=0;
+                    
                     for (int i=0;i<wave.getEnemyCount();i++)
                     {
                         // set position, direction, and speed
@@ -189,6 +161,8 @@ public class ClassroomDefenseFrame extends JFrame
                         highScores.high(enteredString);
                     }
                 }
+                
+                
             }
         }
         ImageIcon board = new ImageIcon("images/classroom_defense1.png");
@@ -322,6 +296,16 @@ public class ClassroomDefenseFrame extends JFrame
         this.add(gameScreenPanel);
         this.add(gameOptionsPanel);
         this.add(homePanel);
+    }
+    public void startGame()
+    {
+        homePanel.setVisible(false);
+        gameScreenPanel.setVisible(true);
+        gameOptionsPanel.setVisible(true);
+        cdf.setSize(960, 790);
+        cdf.setTitle("Duck Defense");
+        playerName = nameField.getText();
+        gameNameLabel.setText(playerName);
     }
     public static void main(String[] args)
     {
