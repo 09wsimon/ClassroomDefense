@@ -87,11 +87,15 @@ public class ClassroomDefenseFrame extends JFrame
         }
         directionsArea=new JTextArea("...\n\nEnter your name and difficulty.\n\nWhen you're in the game \nclick one of the side buttons and \nclick a table on the map.  \nYou'll need money to make these, \nand you get that by killing enemies. \nWhen you think you are ready, \nclick Next Wave to play!\n\nThere are 10 levels\nKeep a passing grade to win!\n...");   
     }
+    
+    private String weaponChoice = null;
+    
     private void createButtons()
     {
         class AddRemoveListener implements ActionListener
         {
             private String action;
+            
             public AddRemoveListener(String action)
             {
                 this.action=action.toLowerCase();
@@ -99,7 +103,6 @@ public class ClassroomDefenseFrame extends JFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
-
                 if (action.equals("easy"))
                 {
                     startGame();
@@ -126,21 +129,37 @@ public class ClassroomDefenseFrame extends JFrame
                 }
                 else if (action.equals("weaponone"))
                 {
-                    
+                    //if (money>=weapon1.cost)
+                    //{
+                        weaponChoice = "w1";
+                    //}
                 }
                 else if (action.equals("weapontwo"))
                 {
-                    
+                    //if (money>=weapon2.cost)
+                    //{
+                        weaponChoice = "w2";
+                    //}
                 }
                 else if (action.equals("weaponthree"))
                 {
-                    
+                    //if (money>=weapon3.cost)
+                    //{
+                        weaponChoice = "w3";
+                    //}
+                }
+                else if (weaponChoice!=null&&action.equals("thisspace"))
+                {
+                    if (towerSpaces.contains(e.getSource()))
+                    {
+                        towerSpaces.get(towerSpaces.indexOf(e.getSource())).setText(weaponChoice);
+                    }
+                    //money=money-weaponChoice.cost;
+                    weaponChoice = null;
                 }
                 else if (action.equals("startwave"))
                 {
                     wave=new Wave(currentWave, difficulty);
-                    
-                    health=0;
                     
                     for (int i=0;i<wave.getEnemyCount();i++)
                     {
@@ -161,12 +180,36 @@ public class ClassroomDefenseFrame extends JFrame
                         highScores.high(enteredString);
                     }
                 }
-                
-                
             }
         }
         ImageIcon board = new ImageIcon("images/classroom_defense1.png");
         gameBoard = new JLabel(board);
+        
+        easyButton=new JButton("easy");
+        mediumButton=new JButton("medium");
+        hardButton=new JButton("hard");
+        backButton=new JButton("back");
+        weaponOneButton=new JButton("weaponone");
+        weaponTwoButton=new JButton("weapontwo");
+        weaponThreeButton=new JButton("weaponthree");
+        startWaveButton=new JButton("startwave");
+        ActionListener easyListener = new AddRemoveListener("easy");
+        ActionListener mediumListener = new AddRemoveListener("medium");
+        ActionListener hardListener = new AddRemoveListener("hard");
+        ActionListener backListener = new AddRemoveListener("back");
+        ActionListener weaponOneListener = new AddRemoveListener("weaponone");
+        ActionListener weaponTwoListener = new AddRemoveListener("weapontwo");
+        ActionListener weaponThreeListener = new AddRemoveListener("weaponthree");
+        ActionListener startWaveListener = new AddRemoveListener("startwave");
+        ActionListener thisSpaceListener = new AddRemoveListener("thisspace");
+        easyButton.addActionListener(easyListener);
+        mediumButton.addActionListener(mediumListener);
+        hardButton.addActionListener(hardListener);
+        backButton.addActionListener(backListener);
+        weaponOneButton.addActionListener(weaponOneListener);
+        weaponTwoButton.addActionListener(weaponTwoListener);
+        weaponThreeButton.addActionListener(weaponThreeListener);
+        startWaveButton.addActionListener(startWaveListener);
         
         towerSpaces = new ArrayList(162);
         int x = 0;
@@ -197,34 +240,9 @@ public class ClassroomDefenseFrame extends JFrame
             {    
                 x=x+150;
             }
-        }
-        
-        easyButton=new JButton("easy");
-        mediumButton=new JButton("medium");
-        hardButton=new JButton("hard");
-        backButton=new JButton("back");
-        weaponOneButton=new JButton("weaponone");
-        weaponTwoButton=new JButton("weapontwo");
-        weaponThreeButton=new JButton("weaponthree");
-        startWaveButton=new JButton("startwave");
-        ActionListener easyListener = new AddRemoveListener("easy");
-        ActionListener mediumListener = new AddRemoveListener("medium");
-        ActionListener hardListener = new AddRemoveListener("hard");
-        ActionListener backListener = new AddRemoveListener("back");
-        ActionListener weaponOneListener = new AddRemoveListener("weaponone");
-        ActionListener weaponTwoListener = new AddRemoveListener("weapontwo");
-        ActionListener weaponThreeListener = new AddRemoveListener("weaponthree");
-        ActionListener startWaveListener = new AddRemoveListener("startwave");
-        easyButton.addActionListener(easyListener);
-        mediumButton.addActionListener(mediumListener);
-        hardButton.addActionListener(hardListener);
-        backButton.addActionListener(backListener);
-        weaponOneButton.addActionListener(weaponOneListener);
-        weaponTwoButton.addActionListener(weaponTwoListener);
-        weaponThreeButton.addActionListener(weaponThreeListener);
-        startWaveButton.addActionListener(startWaveListener);
+            towerSpaces.get(i).addActionListener(thisSpaceListener);
+        }          
     }
-
     private void createTextField()
     {
         final int FIELD_WIDTH=9;
@@ -241,7 +259,7 @@ public class ClassroomDefenseFrame extends JFrame
         gameScreenPanel.setBounds(0, 0, 750, 750);
         gameScreenPanel.add(this.gameBoard);
         this.gameBoard.setBounds(0,0,750,750);
-        for (int i=0;i<towerSpaces.size();i++)
+        for (int i=0;i<162;i++)
         {
             gameScreenPanel.add(towerSpaces.get(i));
             gameScreenPanel.setComponentZOrder(towerSpaces.get(i), 0);
