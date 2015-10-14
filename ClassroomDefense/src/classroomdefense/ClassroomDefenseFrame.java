@@ -16,6 +16,8 @@ public class ClassroomDefenseFrame extends JFrame
     private int money = 0;
     private int currentWave = 1;
     private Wave wave;
+    private String weaponChoice = null;
+    private ImageIcon weaponIcon = null;
     
     private JButton easyButton;
     private JButton mediumButton;
@@ -25,12 +27,14 @@ public class ClassroomDefenseFrame extends JFrame
     private JButton weaponTwoButton;
     private JButton weaponThreeButton;
     private JButton startWaveButton;
-    private JLabel gameBoard;
     private ArrayList<JButton> towerSpaces;
+    
     private ImageIcon board = new ImageIcon("images/classroom_defense1.png");
     private ImageIcon soldierIcon = new ImageIcon("images/cartoon-soldier-010.jpg");
     private ImageIcon berserkerIcon = new ImageIcon("images/466345504.jpg");
     private ImageIcon tankIcon = new ImageIcon("images/tank10.png");
+    
+    private JLabel gameBoard;
     private JLabel enterNameLabel;
     private JLabel gameNameLabel;
     private JLabel gameScoreLabel;
@@ -38,10 +42,8 @@ public class ClassroomDefenseFrame extends JFrame
     private JLabel gameHealthLabel;
     private JLabel gameWaveLabel;
     private JLabel weaponsLabel;
-    
     private JTextArea highScoreArea;
     private JTextArea directionsArea;
-    
     private JTextField nameField;
     
     private ActionListener easyListener;
@@ -62,16 +64,16 @@ public class ClassroomDefenseFrame extends JFrame
 
     public ClassroomDefenseFrame()
     {
-        this.createComponents();
-        this.createPanels();
+        createComponents();
+        createPanels();
         this.setSize(235, 505);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
     public void createComponents()
     {
-        this.createButtons();
-        this.createTextField();
+        createButtons();
+        createTextField();
         enterNameLabel=new JLabel("Enter name");
         gameNameLabel=new JLabel("Name: "+playerName);
         gameScoreLabel=new JLabel("Score: "+playerScore);
@@ -80,6 +82,19 @@ public class ClassroomDefenseFrame extends JFrame
         gameWaveLabel=new JLabel("Wave: "+currentWave);
         weaponsLabel=new JLabel("Weapons");
         gameBoard = new JLabel(board);
+        directionsArea=new JTextArea(
+                  "Enter your name and difficulty.\n\n"
+                          
+                + "When you're in the game \n"
+                + "click one of the side buttons and \n"
+                + "click a table on the map.\n"
+                + "You'll need money to make these,\n"
+                + "and you get that by killing enemies.\n"
+                + "When you think you are ready,\n"
+                + "click Next Wave to play!\n\n"
+                          
+                + "There are 10 levels\n"
+                + "Keep a passing grade to win!\n");   
         try 
         { 
             String one = ""; 
@@ -101,18 +116,12 @@ public class ClassroomDefenseFrame extends JFrame
         { 
             e.printStackTrace(); 
         }
-        directionsArea=new JTextArea("...\n\nEnter your name and difficulty.\n\nWhen you're in the game \nclick one of the side buttons and \nclick a table on the map.  \nYou'll need money to make these, \nand you get that by killing enemies. \nWhen you think you are ready, \nclick Next Wave to play!\n\nThere are 10 levels\nKeep a passing grade to win!\n...");   
-    }
-    
-    private String weaponChoice = null;
-    private ImageIcon weaponIcon = null;
-    
+    }    
     private void createButtons()
     {
         class AddRemoveListener implements ActionListener
         {
             private String action;
-            
             public AddRemoveListener(String action)
             {
                 this.action=action.toLowerCase();
@@ -135,15 +144,12 @@ public class ClassroomDefenseFrame extends JFrame
                     startGame();
                     difficulty="hard";
                 }
-                
-                
                 if (action.equals("back"))
                 {
                     gameScreenPanel.setVisible(false);
                     gameOptionsPanel.setVisible(false);
                     homePanel.setVisible(true);
                     cdf.setSize(235, 505);
-                    //newBoard();
                 }
                 else if (action.equals("weaponone"))
                 {
@@ -177,8 +183,7 @@ public class ClassroomDefenseFrame extends JFrame
                         weaponChoice = null;
                         weaponIcon = null;
                     }
-                    //money=money-weaponChoice.cost;
-                    
+                    //money=money-weaponChoice.cost;  
                 }
                 else if (action.equals("startwave"))
                 {
@@ -242,19 +247,6 @@ public class ClassroomDefenseFrame extends JFrame
     {
         homePanel=new JPanel();
         homePanel.setLayout(null);
-        
-        gameScreenPanel=new JPanel();
-        gameScreenPanel.setLayout(null);
-        gameScreenPanel.setVisible(false);
-        gameScreenPanel.setBounds(0, 0, 750, 750);
-        
-        gameOptionsPanel=new JPanel();
-        gameOptionsPanel.setLayout(null);
-        gameOptionsPanel.setBackground(Color.red);
-        gameOptionsPanel.setLayout(null);
-        gameOptionsPanel.setVisible(false);
-        gameOptionsPanel.setBounds(760, 0, 200, 750);
-
         homePanel.add(easyButton);
         homePanel.add(mediumButton);
         homePanel.add(hardButton);
@@ -270,6 +262,17 @@ public class ClassroomDefenseFrame extends JFrame
         highScoreArea.setBounds(10, 10, 100, 180);
         directionsArea.setBounds(10, 205, 200, 250);
         
+        gameScreenPanel=new JPanel();
+        gameScreenPanel.setLayout(null);
+        gameScreenPanel.setVisible(false);
+        gameScreenPanel.setBounds(0, 0, 750, 750);
+        
+        gameOptionsPanel=new JPanel();
+        gameOptionsPanel.setLayout(null);
+        gameOptionsPanel.setBackground(Color.red);
+        gameOptionsPanel.setLayout(null);
+        gameOptionsPanel.setVisible(false);
+        gameOptionsPanel.setBounds(760, 0, 200, 750);
         gameOptionsPanel.add(gameNameLabel);
         gameOptionsPanel.add(gameScoreLabel);
         gameOptionsPanel.add(gameHealthLabel);
@@ -292,6 +295,7 @@ public class ClassroomDefenseFrame extends JFrame
         weaponTwoButton.setBounds(0, 260, 70, 50);
         weaponThreeButton.setBounds(0, 320, 70, 50);
         startWaveButton.setBounds(0, 500, 100, 50);
+        
         this.add(gameScreenPanel);
         this.add(gameOptionsPanel);
         this.add(homePanel);
@@ -299,29 +303,16 @@ public class ClassroomDefenseFrame extends JFrame
     public void newBoard()
     {
         towerSpaces.clear();
-        for (int x=0, y=0, w=50, h=50, i=0;i<162;i++)
+        for (int X=0, Y=0, W=50, H=50, i=0;i<162;i++)
         {
             towerSpaces.add(i, new JButton());
-            towerSpaces.get(i).setBounds(x, y, w, h);
+            towerSpaces.get(i).setBounds(X, Y, W, H);
             towerSpaces.get(i).setContentAreaFilled(false);
-            x=x+50;
-            if (x==750)
-            {
-                x=0;
-                y=y+50;
-            }
-            if (y<300&&x==150)
-            {           
-                x=x+150;
-            }
-            else if (y<450&&x==150)
-            {    
-                x=x+450;
-            }
-            else if (y>=450&&x==450)
-            {    
-                x=x+150;
-            }
+            X=X+50;
+            if      (X==750)     {X=0; Y=Y+50;}
+            if      (Y<300 && X==150){X=X+150;}
+            else if (Y<450 && X==150){X=X+450;}
+            else if (Y>=450&& X==450){X=X+150;}
             towerSpaces.get(i).addActionListener(thisSpaceListener);
         }
     }
