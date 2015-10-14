@@ -27,13 +27,17 @@ public class ClassroomDefenseFrame extends JFrame
     private JButton startWaveButton;
     private JLabel gameBoard;
     private ArrayList<JButton> towerSpaces;
-    ImageIcon board = new ImageIcon("images/classroom_defense1.png");
+    private ImageIcon board = new ImageIcon("images/classroom_defense1.png");
+    private ImageIcon soldierIcon = new ImageIcon("images/cartoon-soldier-010.jpg");
+    private ImageIcon berserkerIcon = new ImageIcon("images/466345504.jpg");
+    private ImageIcon tankIcon = new ImageIcon("images/tank10.png");
     private JLabel enterNameLabel;
     private JLabel gameNameLabel;
     private JLabel gameScoreLabel;
     private JLabel gameMoneyLabel;
     private JLabel gameHealthLabel;
     private JLabel gameWaveLabel;
+    private JLabel weaponsLabel;
     
     private JTextArea highScoreArea;
     private JTextArea directionsArea;
@@ -74,6 +78,8 @@ public class ClassroomDefenseFrame extends JFrame
         gameHealthLabel=new JLabel("Health: "+health);
         gameMoneyLabel=new JLabel("$"+money);
         gameWaveLabel=new JLabel("Wave: "+currentWave);
+        weaponsLabel=new JLabel("Weapons");
+        gameBoard = new JLabel(board);
         try 
         { 
             String one = ""; 
@@ -99,6 +105,7 @@ public class ClassroomDefenseFrame extends JFrame
     }
     
     private String weaponChoice = null;
+    private ImageIcon weaponIcon = null;
     
     private void createButtons()
     {
@@ -143,6 +150,7 @@ public class ClassroomDefenseFrame extends JFrame
                     //if (money>=weapon1.cost)
                     //{
                         weaponChoice = "w1";
+                        weaponIcon = soldierIcon;
                     //}
                 }
                 else if (action.equals("weapontwo"))
@@ -150,6 +158,7 @@ public class ClassroomDefenseFrame extends JFrame
                     //if (money>=weapon2.cost)
                     //{
                         weaponChoice = "w2";
+                        weaponIcon = berserkerIcon;
                     //}
                 }
                 else if (action.equals("weaponthree"))
@@ -157,16 +166,19 @@ public class ClassroomDefenseFrame extends JFrame
                     //if (money>=weapon3.cost)
                     //{
                         weaponChoice = "w3";
+                        weaponIcon = tankIcon;
                     //}
                 }
                 else if (weaponChoice!=null&&action.equals("thisspace"))
                 {
-                    if (towerSpaces.contains(e.getSource()))
+                    if (towerSpaces.contains(e.getSource())&&towerSpaces.get(towerSpaces.indexOf(e.getSource())).getIcon()==null)
                     {
-                        towerSpaces.get(towerSpaces.indexOf(e.getSource())).setText(weaponChoice);
+                        towerSpaces.get(towerSpaces.indexOf(e.getSource())).setIcon(weaponIcon);
+                        weaponChoice = null;
+                        weaponIcon = null;
                     }
                     //money=money-weaponChoice.cost;
-                    weaponChoice = null;
+                    
                 }
                 else if (action.equals("startwave"))
                 {
@@ -192,17 +204,14 @@ public class ClassroomDefenseFrame extends JFrame
                     }
                 }
             }
-        }
-        ImageIcon board = new ImageIcon("images/classroom_defense1.png");
-        gameBoard = new JLabel(board);
-        
+        }        
         easyButton=new JButton("easy");
         mediumButton=new JButton("medium");
         hardButton=new JButton("hard");
         backButton=new JButton("back");
-        weaponOneButton=new JButton("weaponone");
-        weaponTwoButton=new JButton("weapontwo");
-        weaponThreeButton=new JButton("weaponthree");
+        weaponOneButton=new JButton(soldierIcon);
+        weaponTwoButton=new JButton(berserkerIcon);
+        weaponThreeButton=new JButton(tankIcon);
         startWaveButton=new JButton("startwave");
         
         easyListener = new AddRemoveListener("easy");
@@ -222,11 +231,7 @@ public class ClassroomDefenseFrame extends JFrame
         weaponOneButton.addActionListener(weaponOneListener);
         weaponTwoButton.addActionListener(weaponTwoListener);
         weaponThreeButton.addActionListener(weaponThreeListener);
-        startWaveButton.addActionListener(startWaveListener);
-        
-        
-        
-        //newBoard();
+        startWaveButton.addActionListener(startWaveListener);  
     }
     private void createTextField()
     {
@@ -242,7 +247,6 @@ public class ClassroomDefenseFrame extends JFrame
         gameScreenPanel.setLayout(null);
         gameScreenPanel.setVisible(false);
         gameScreenPanel.setBounds(0, 0, 750, 750);
-        this.gameBoard.setBounds(0,0,750,750);
         
         gameOptionsPanel=new JPanel();
         gameOptionsPanel.setLayout(null);
@@ -251,45 +255,43 @@ public class ClassroomDefenseFrame extends JFrame
         gameOptionsPanel.setVisible(false);
         gameOptionsPanel.setBounds(760, 0, 200, 750);
 
+        homePanel.add(easyButton);
+        homePanel.add(mediumButton);
+        homePanel.add(hardButton);
+        homePanel.add(enterNameLabel);
+        homePanel.add(nameField);
+        homePanel.add(highScoreArea);
+        homePanel.add(directionsArea);
+        easyButton.setBounds(130, 10, 80, 25);
+        mediumButton.setBounds(130, 45, 80, 25);
+        hardButton.setBounds(130, 80, 80, 25);
+        enterNameLabel.setBounds(130, 125, 80, 25);
+        nameField.setBounds(130, 150, 80, 25);
+        highScoreArea.setBounds(10, 10, 100, 180);
+        directionsArea.setBounds(10, 205, 200, 250);
         
-        homePanel.add(this.easyButton);
-        this.easyButton.setBounds(130, 10, 80, 25);
-        homePanel.add(this.mediumButton);
-        this.mediumButton.setBounds(130, 45, 80, 25);
-        homePanel.add(this.hardButton);
-        this.hardButton.setBounds(130, 80, 80, 25);
-        homePanel.add(this.enterNameLabel);
-        this.enterNameLabel.setBounds(130, 125, 80, 25);
-        homePanel.add(this.nameField);
-        this.nameField.setBounds(130, 150, 80, 25);
-        homePanel.add(this.highScoreArea);
-        this.highScoreArea.setBounds(10, 10, 100, 180);
-        homePanel.add(this.directionsArea);
-        this.directionsArea.setBounds(10, 205, 200, 250);
-        
-        gameOptionsPanel.add(this.backButton);
-        this.backButton.setBounds(105, 0, 80, 25);
-        
-        gameOptionsPanel.add(this.weaponOneButton);
-        this.weaponOneButton.setBounds(0, 150, 110, 35);
-        gameOptionsPanel.add(this.weaponTwoButton);
-        this.weaponTwoButton.setBounds(0, 195, 110, 35);
-        gameOptionsPanel.add(this.weaponThreeButton);
-        this.weaponThreeButton.setBounds(0, 240, 110, 35);
-        gameOptionsPanel.add(this.startWaveButton);
-        this.startWaveButton.setBounds(0, 500, 100, 50);
-        gameOptionsPanel.add(this.gameNameLabel);
-        this.gameNameLabel.setBounds(0, 0, 100, 25);
-        gameOptionsPanel.add(this.gameScoreLabel);
-        this.gameScoreLabel.setBounds(0, 25, 100, 25);
-        gameOptionsPanel.add(this.gameHealthLabel);
-        this.gameHealthLabel.setBounds(0, 50, 100, 25);
-        gameOptionsPanel.add(this.gameMoneyLabel);
-        this.gameMoneyLabel.setBounds(0, 75, 100, 25);
-        gameOptionsPanel.add(this.gameWaveLabel);
-        this.gameWaveLabel.setBounds(0, 475, 100, 25);
-        
-        
+        gameOptionsPanel.add(gameNameLabel);
+        gameOptionsPanel.add(gameScoreLabel);
+        gameOptionsPanel.add(gameHealthLabel);
+        gameOptionsPanel.add(gameMoneyLabel);
+        gameOptionsPanel.add(gameWaveLabel); 
+        gameOptionsPanel.add(weaponsLabel);
+        gameOptionsPanel.add(backButton);
+        gameOptionsPanel.add(weaponOneButton);
+        gameOptionsPanel.add(weaponTwoButton);
+        gameOptionsPanel.add(weaponThreeButton);
+        gameOptionsPanel.add(startWaveButton);
+        gameNameLabel.setBounds(0, 0, 100, 25);
+        gameScoreLabel.setBounds(0, 25, 100, 25);
+        gameHealthLabel.setBounds(0, 50, 100, 25);
+        gameMoneyLabel.setBounds(0, 75, 100, 25);
+        gameWaveLabel.setBounds(0, 475, 100, 25);
+        weaponsLabel.setBounds(0, 165, 110, 35);        
+        backButton.setBounds(105, 0, 80, 25);
+        weaponOneButton.setBounds(0, 200, 70, 50);
+        weaponTwoButton.setBounds(0, 260, 70, 50);
+        weaponThreeButton.setBounds(0, 320, 70, 50);
+        startWaveButton.setBounds(0, 500, 100, 50);
         this.add(gameScreenPanel);
         this.add(gameOptionsPanel);
         this.add(homePanel);
@@ -299,10 +301,9 @@ public class ClassroomDefenseFrame extends JFrame
         towerSpaces.clear();
         for (int x=0, y=0, w=50, h=50, i=0;i<162;i++)
         {
-            towerSpaces.add(i, new JButton(""+i));
+            towerSpaces.add(i, new JButton());
             towerSpaces.get(i).setBounds(x, y, w, h);
             towerSpaces.get(i).setContentAreaFilled(false);
-            towerSpaces.get(i).setFont(new Font("Arial", Font.PLAIN, 9));
             x=x+50;
             if (x==750)
             {
@@ -335,7 +336,8 @@ public class ClassroomDefenseFrame extends JFrame
         gameNameLabel.setText(playerName);
         towerSpaces = new ArrayList(162);
         gameScreenPanel.removeAll();
-        gameScreenPanel.add(this.gameBoard);
+        gameScreenPanel.add(gameBoard);
+        gameBoard.setBounds(0,0,750,750);
         newBoard();
         for (int i=0;i<162;i++)
         {
