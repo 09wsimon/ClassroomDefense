@@ -40,6 +40,16 @@ public class ClassroomDefenseFrame extends JFrame
     
     private JTextField nameField;
     
+    private ActionListener easyListener;
+    private ActionListener mediumListener;
+    private ActionListener hardListener;
+    private ActionListener backListener;
+    private ActionListener weaponOneListener;
+    private ActionListener weaponTwoListener;
+    private ActionListener weaponThreeListener;
+    private ActionListener startWaveListener;
+    private ActionListener thisSpaceListener;
+    
     private JPanel homePanel;
     private JPanel gameScreenPanel;
     private JPanel gameOptionsPanel;
@@ -126,6 +136,7 @@ public class ClassroomDefenseFrame extends JFrame
                     gameOptionsPanel.setVisible(false);
                     homePanel.setVisible(true);
                     cdf.setSize(235, 505);
+                    //newBoard();
                 }
                 else if (action.equals("weaponone"))
                 {
@@ -193,15 +204,17 @@ public class ClassroomDefenseFrame extends JFrame
         weaponTwoButton=new JButton("weapontwo");
         weaponThreeButton=new JButton("weaponthree");
         startWaveButton=new JButton("startwave");
-        ActionListener easyListener = new AddRemoveListener("easy");
-        ActionListener mediumListener = new AddRemoveListener("medium");
-        ActionListener hardListener = new AddRemoveListener("hard");
-        ActionListener backListener = new AddRemoveListener("back");
-        ActionListener weaponOneListener = new AddRemoveListener("weaponone");
-        ActionListener weaponTwoListener = new AddRemoveListener("weapontwo");
-        ActionListener weaponThreeListener = new AddRemoveListener("weaponthree");
-        ActionListener startWaveListener = new AddRemoveListener("startwave");
-        ActionListener thisSpaceListener = new AddRemoveListener("thisspace");
+        
+        easyListener = new AddRemoveListener("easy");
+        mediumListener = new AddRemoveListener("medium");
+        hardListener = new AddRemoveListener("hard");
+        backListener = new AddRemoveListener("back");
+        weaponOneListener = new AddRemoveListener("weaponone");
+        weaponTwoListener = new AddRemoveListener("weapontwo");
+        weaponThreeListener = new AddRemoveListener("weaponthree");
+        startWaveListener = new AddRemoveListener("startwave");
+        thisSpaceListener = new AddRemoveListener("thisspace");
+        
         easyButton.addActionListener(easyListener);
         mediumButton.addActionListener(mediumListener);
         hardButton.addActionListener(hardListener);
@@ -211,37 +224,9 @@ public class ClassroomDefenseFrame extends JFrame
         weaponThreeButton.addActionListener(weaponThreeListener);
         startWaveButton.addActionListener(startWaveListener);
         
-        towerSpaces = new ArrayList(162);
-        int x = 0;
-        int y = 0;
-        int w = 50;
-        int h = 50;
-        for (int i=0;i<162;i++)
-        {
-            towerSpaces.add(new JButton(""+i));
-            towerSpaces.get(i).setBounds(x, y, w, h);
-            towerSpaces.get(i).setContentAreaFilled(false);
-            towerSpaces.get(i).setFont(new Font("Arial", Font.PLAIN, 9));
-            x=x+50;
-            if (x==750)
-            {
-                x=0;
-                y=y+50;
-            }
-            if (y<300&&x==150)
-            {           
-                x=x+150;
-            }
-            else if (y<450&&x==150)
-            {    
-                x=x+450;
-            }
-            else if (y>=450&&x==450)
-            {    
-                x=x+150;
-            }
-            towerSpaces.get(i).addActionListener(thisSpaceListener);
-        }          
+        
+        
+        //newBoard();
     }
     private void createTextField()
     {
@@ -257,13 +242,7 @@ public class ClassroomDefenseFrame extends JFrame
         gameScreenPanel.setLayout(null);
         gameScreenPanel.setVisible(false);
         gameScreenPanel.setBounds(0, 0, 750, 750);
-        gameScreenPanel.add(this.gameBoard);
         this.gameBoard.setBounds(0,0,750,750);
-        for (int i=0;i<162;i++)
-        {
-            gameScreenPanel.add(towerSpaces.get(i));
-            gameScreenPanel.setComponentZOrder(towerSpaces.get(i), 0);
-        }
         
         gameOptionsPanel=new JPanel();
         gameOptionsPanel.setLayout(null);
@@ -315,6 +294,36 @@ public class ClassroomDefenseFrame extends JFrame
         this.add(gameOptionsPanel);
         this.add(homePanel);
     }
+    public void newBoard()
+    {
+        towerSpaces.clear();
+        for (int x=0, y=0, w=50, h=50, i=0;i<162;i++)
+        {
+            towerSpaces.add(i, new JButton(""+i));
+            towerSpaces.get(i).setBounds(x, y, w, h);
+            towerSpaces.get(i).setContentAreaFilled(false);
+            towerSpaces.get(i).setFont(new Font("Arial", Font.PLAIN, 9));
+            x=x+50;
+            if (x==750)
+            {
+                x=0;
+                y=y+50;
+            }
+            if (y<300&&x==150)
+            {           
+                x=x+150;
+            }
+            else if (y<450&&x==150)
+            {    
+                x=x+450;
+            }
+            else if (y>=450&&x==450)
+            {    
+                x=x+150;
+            }
+            towerSpaces.get(i).addActionListener(thisSpaceListener);
+        }
+    }
     public void startGame()
     {
         homePanel.setVisible(false);
@@ -324,6 +333,15 @@ public class ClassroomDefenseFrame extends JFrame
         cdf.setTitle("Duck Defense");
         playerName = nameField.getText();
         gameNameLabel.setText(playerName);
+        towerSpaces = new ArrayList(162);
+        gameScreenPanel.removeAll();
+        gameScreenPanel.add(this.gameBoard);
+        newBoard();
+        for (int i=0;i<162;i++)
+        {
+            gameScreenPanel.add(towerSpaces.get(i));
+            gameScreenPanel.setComponentZOrder(towerSpaces.get(i), 0);
+        }
     }
     public static void main(String[] args)
     {
