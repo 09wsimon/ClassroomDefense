@@ -1,6 +1,7 @@
 package classroomdefense;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.*;
 import javax.swing.*;
@@ -284,6 +285,7 @@ public class ClassroomDefenseFrame extends JFrame
         homePanel.add(highScoreArea);
         highScoreArea.setEditable(false);
         homePanel.add(directionsArea);
+        directionsArea.setEditable(false);
         easyButton.setBounds(130, 10, 80, 25);
         mediumButton.setBounds(130, 45, 80, 25);
         hardButton.setBounds(130, 80, 80, 25);
@@ -299,7 +301,7 @@ public class ClassroomDefenseFrame extends JFrame
         
         gameOptionsPanel=new JPanel();
         gameOptionsPanel.setLayout(null);
-        gameOptionsPanel.setBackground(Color.red);
+        gameOptionsPanel.setBackground(Color.gray);
         gameOptionsPanel.setLayout(null);
         gameOptionsPanel.setVisible(false);
         gameOptionsPanel.setBounds(760, 0, 200, 750);
@@ -379,3 +381,47 @@ public class ClassroomDefenseFrame extends JFrame
         JFrame testFrame = new ClassroomDefenseFrame();
     }
 }
+//@Override
+//    public void paintComponent(Graphics g)
+//    {
+//        super.paintComponent(g);
+//    
+//        if ( y<300)
+//        {
+//           y=y+10;
+//           
+//        }
+//        if ( y>=300 && x<=500)
+//        {
+//           x=x+10;
+//           
+//        }
+//        if (x>=500)
+//        {
+//            
+//            y=y+10;
+//        }
+//        
+//       
+//        
+//        
+//        g.fillRect(x, y, 20,20);
+//        
+//    }
+//
+//    @Override
+//    public void actionPerformed(ActionEvent ae) 
+//    {
+//        Object obj = ae.getSource();
+//        if(obj == b1)
+//        {
+//            t1.start(); // t1.stop();  t1.setDelay(500);
+//        }
+//        if(obj == t1)
+//        {
+//            repaint(); //call paintComponent
+//            //paintComponent is in charge of updating x and y 
+//            // and drawing a rectangle
+//        }
+//        
+//    }
