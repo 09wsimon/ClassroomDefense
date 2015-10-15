@@ -381,7 +381,6 @@ public class ClassroomDefenseFrame extends JFrame
         JFrame testFrame = new ClassroomDefenseFrame();
     }
 }
-
 //@Override
 //    public void paintComponent(Graphics g)
 //    {
