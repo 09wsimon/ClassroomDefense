@@ -3,16 +3,18 @@ import java.awt.Color;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
-public class Enemy 
+public class Enemy extends JButton
 {
     private int health;
-    private int speed;
     private ImageIcon image;
     
-    public Enemy(int health, int speed)
+    public Enemy()
     {
-        this.health=health;
-        this.speed=speed;
+        super();
+        health=100;
+        image = new ImageIcon("images/cartoon_duck-1979px_1.png");
+        this.setIcon(image);
+        this.setSize(50, 50);
     }
     public int getHealth()
     {
