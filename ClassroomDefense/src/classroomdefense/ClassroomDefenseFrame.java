@@ -13,11 +13,13 @@ public class ClassroomDefenseFrame extends JFrame
     private String difficulty;
     private int playerScore = 0;
     private int health = 100;
-    private int money = 0;
+    private int money;
     private int currentWave = 1;
+    private int chosenWeaponPrice;
     private Wave wave;
     private String weaponChoice = null;
     private ImageIcon weaponIcon = null;
+    private java.util.Timer tim;
     
     private JButton easyButton;
     private JButton mediumButton;
@@ -42,6 +44,9 @@ public class ClassroomDefenseFrame extends JFrame
     private JLabel gameHealthLabel;
     private JLabel gameWaveLabel;
     private JLabel weaponsLabel;
+    private JLabel w1Price;
+    private JLabel w2Price;
+    private JLabel w3Price;
     private JTextArea highScoreArea;
     private JTextArea directionsArea;
     private JTextField nameField;
@@ -78,10 +83,13 @@ public class ClassroomDefenseFrame extends JFrame
         gameNameLabel=new JLabel("Name: "+playerName);
         gameScoreLabel=new JLabel("Score: "+playerScore);
         gameHealthLabel=new JLabel("Health: "+health);
-        gameMoneyLabel=new JLabel("$"+money);
+        gameMoneyLabel=new JLabel();
         gameWaveLabel=new JLabel("Wave: "+currentWave);
         weaponsLabel=new JLabel("Weapons");
         gameBoard = new JLabel(board);
+        w1Price = new JLabel("$10");
+        w2Price = new JLabel("$20");
+        w3Price = new JLabel("$30");
         directionsArea=new JTextArea(
                   "Enter your name and difficulty.\n\n"
                           
@@ -94,7 +102,8 @@ public class ClassroomDefenseFrame extends JFrame
                 + "click Next Wave to play!\n\n"
                           
                 + "There are 10 levels\n"
-                + "Keep a passing grade to win!\n");   
+                + "Keep a passing grade to win!\n");
+        directionsArea.setEditable(false);
         try 
         { 
             String one = ""; 
@@ -131,18 +140,21 @@ public class ClassroomDefenseFrame extends JFrame
             {
                 if (action.equals("easy"))
                 {
-                    startGame();
                     difficulty = "easy";
+                    money = 30;
+                    startGame();
                 }
                 else if (action.equals("medium"))
                 {
-                    startGame();
                     difficulty="medium";
+                    money = 20;
+                    startGame();
                 }
                 else if (action.equals("hard"))
                 {
-                    startGame();
                     difficulty="hard";
+                    money = 10;
+                    startGame();
                 }
                 if (action.equals("back"))
                 {
@@ -153,27 +165,30 @@ public class ClassroomDefenseFrame extends JFrame
                 }
                 else if (action.equals("weaponone"))
                 {
-                    //if (money>=weapon1.cost)
-                    //{
+                    chosenWeaponPrice = 10;
+                    if (money>=chosenWeaponPrice)
+                    {
                         weaponChoice = "w1";
                         weaponIcon = soldierIcon;
-                    //}
+                    }
                 }
                 else if (action.equals("weapontwo"))
                 {
-                    //if (money>=weapon2.cost)
-                    //{
+                    chosenWeaponPrice = 20;
+                    if (money>=chosenWeaponPrice)
+                    {
                         weaponChoice = "w2";
                         weaponIcon = berserkerIcon;
-                    //}
+                    }
                 }
                 else if (action.equals("weaponthree"))
                 {
-                    //if (money>=weapon3.cost)
-                    //{
+                    chosenWeaponPrice = 50;
+                    if (money>=chosenWeaponPrice)
+                    {
                         weaponChoice = "w3";
                         weaponIcon = tankIcon;
-                    //}
+                    }
                 }
                 else if (weaponChoice!=null&&action.equals("thisspace"))
                 {
@@ -182,23 +197,26 @@ public class ClassroomDefenseFrame extends JFrame
                         towerSpaces.get(towerSpaces.indexOf(e.getSource())).setIcon(weaponIcon);
                         weaponChoice = null;
                         weaponIcon = null;
+                        money=money-chosenWeaponPrice;
+                        gameMoneyLabel.setText("Bank: $"+money);
                     }
-                    //money=money-weaponChoice.cost;  
+                    
                 }
                 else if (action.equals("startwave"))
                 {
                     wave=new Wave(currentWave, difficulty);
-                    
-                    for (int i=0;i<wave.getEnemyCount();i++)
+                    for (int i=0;i<wave.enemies().size();i++)
                     {
+                        //wave.enemies().get(i)
+
                         // set position, direction, and speed
                         // of wave.enemies()[i], then delay a
                         // moment before the next increment
                     }
                     if (health>0)
                     {
+                        money=money+wave.enemies().size();
                         currentWave++;
-                        //money+some
                         //score+some
                     }
                     else
@@ -253,6 +271,7 @@ public class ClassroomDefenseFrame extends JFrame
         homePanel.add(enterNameLabel);
         homePanel.add(nameField);
         homePanel.add(highScoreArea);
+        highScoreArea.setEditable(false);
         homePanel.add(directionsArea);
         easyButton.setBounds(130, 10, 80, 25);
         mediumButton.setBounds(130, 45, 80, 25);
@@ -279,6 +298,9 @@ public class ClassroomDefenseFrame extends JFrame
         gameOptionsPanel.add(gameMoneyLabel);
         gameOptionsPanel.add(gameWaveLabel); 
         gameOptionsPanel.add(weaponsLabel);
+        gameOptionsPanel.add(w1Price);
+        gameOptionsPanel.add(w2Price);
+        gameOptionsPanel.add(w3Price);
         gameOptionsPanel.add(backButton);
         gameOptionsPanel.add(weaponOneButton);
         gameOptionsPanel.add(weaponTwoButton);
@@ -289,7 +311,10 @@ public class ClassroomDefenseFrame extends JFrame
         gameHealthLabel.setBounds(0, 50, 100, 25);
         gameMoneyLabel.setBounds(0, 75, 100, 25);
         gameWaveLabel.setBounds(0, 475, 100, 25);
-        weaponsLabel.setBounds(0, 165, 110, 35);        
+        weaponsLabel.setBounds(0, 165, 110, 35);
+        w1Price.setBounds(75, 215, 30, 20);
+        w2Price.setBounds(75, 275, 30, 20);
+        w3Price.setBounds(75, 335, 30, 20);
         backButton.setBounds(105, 0, 80, 25);
         weaponOneButton.setBounds(0, 200, 70, 50);
         weaponTwoButton.setBounds(0, 260, 70, 50);
@@ -324,7 +349,8 @@ public class ClassroomDefenseFrame extends JFrame
         cdf.setSize(960, 790);
         cdf.setTitle("Duck Defense");
         playerName = nameField.getText();
-        gameNameLabel.setText(playerName);
+        gameNameLabel.setText("Name: "+playerName);
+        gameMoneyLabel.setText("Bank: $"+money);
         towerSpaces = new ArrayList(162);
         gameScreenPanel.removeAll();
         gameScreenPanel.add(gameBoard);
