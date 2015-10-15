@@ -19,7 +19,7 @@ public class ClassroomDefenseFrame extends JFrame
     private Wave wave;
     private String weaponChoice = null;
     private ImageIcon weaponIcon = null;
-    private java.util.Timer tim;
+    private javax.swing.Timer tim;
     
     private JButton easyButton;
     private JButton mediumButton;
@@ -202,13 +202,24 @@ public class ClassroomDefenseFrame extends JFrame
                     }
                     
                 }
+                else if (action.equals("moveEnemy"))
+                {
+                    Object obj = e.getSource();
+                    if (obj instanceof Enemy)
+                    {
+                        tim.start();
+                    }
+                    if (obj == tim)
+                    {
+                        
+                    }
+                }
                 else if (action.equals("startwave"))
                 {
+                    tim = new javax.swing.Timer(1000,this);
                     wave=new Wave(currentWave, difficulty);
                     for (int i=0;i<wave.enemies().size();i++)
                     {
-                        //wave.enemies().get(i)
-
                         // set position, direction, and speed
                         // of wave.enemies()[i], then delay a
                         // moment before the next increment
@@ -216,8 +227,8 @@ public class ClassroomDefenseFrame extends JFrame
                     if (health>0)
                     {
                         money=money+wave.enemies().size();
+                        playerScore=playerScore+wave.enemies().size();
                         currentWave++;
-                        //score+some
                     }
                     else
                     {
