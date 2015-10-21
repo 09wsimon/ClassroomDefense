@@ -90,7 +90,7 @@ public class ClassroomDefenseFrame extends JFrame
         gameBoard = new JLabel(board);
         w1Price = new JLabel("$10");
         w2Price = new JLabel("$20");
-        w3Price = new JLabel("$30");
+        w3Price = new JLabel("$50");
         directionsArea=new JTextArea(
                   "Enter your name and difficulty.\n\n"
                           
@@ -139,6 +139,7 @@ public class ClassroomDefenseFrame extends JFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
+                Object obj = e.getSource();                
                 if (action.equals("easy"))
                 {
                     difficulty = "easy";
@@ -172,23 +173,35 @@ public class ClassroomDefenseFrame extends JFrame
                         weaponChoice = "w1";
                         weaponIcon = soldierIcon;
                     }
+                    else
+                    {
+                        weaponChoice = null;
+                    }
                 }
                 else if (action.equals("weapontwo"))
                 {
                     chosenWeaponPrice = 20;
                     if (money>=chosenWeaponPrice)
-                    {
+                    {   
                         weaponChoice = "w2";
                         weaponIcon = berserkerIcon;
+                    }
+                    else
+                    {
+                        weaponChoice = null;
                     }
                 }
                 else if (action.equals("weaponthree"))
                 {
                     chosenWeaponPrice = 50;
                     if (money>=chosenWeaponPrice)
-                    {
+                    {   
                         weaponChoice = "w3";
                         weaponIcon = tankIcon;
+                    }
+                    else
+                    {
+                        weaponChoice = null;
                     }
                 }
                 else if (weaponChoice!=null&&action.equals("thisspace"))
@@ -200,31 +213,17 @@ public class ClassroomDefenseFrame extends JFrame
                         weaponIcon = null;
                         money=money-chosenWeaponPrice;
                         gameMoneyLabel.setText("Bank: $"+money);
-                    }
-                    
-                }
-                else if (action.equals("moveEnemy"))
-                {
-                    Object obj = e.getSource();
-                    if (obj instanceof Enemy)
-                    {
-                        tim.start();
-                    }
-                    if (obj == tim)
-                    {
-                        
-                    }
+                    }                   
                 }
                 else if (action.equals("startwave"))
                 {
                     tim = new javax.swing.Timer(1000,this);
                     wave=new Wave(currentWave, difficulty);
-                    for (int i=0;i<wave.enemies().size();i++)
-                    {
-                        // set position, direction, and speed
-                        // of wave.enemies()[i], then delay a
-                        // moment before the next increment
-                    }
+                    makeEnemies(wave.enemies());
+                    //tim.start();
+                    // set position, direction, and speed
+                    // of wave.enemies()[i], then delay a
+                    // moment before the next increment
                     if (health>0)
                     {
                         money=money+wave.enemies().size();
@@ -237,7 +236,11 @@ public class ClassroomDefenseFrame extends JFrame
                         String enteredString=nameField.getText();
                         highScores.high(enteredString);
                     }
-                }
+//                    if (obj == tim)
+//                    {
+//                        moveEnemies(wave.enemies());
+//                    }
+                } 
             }
         }        
         easyButton=new JButton("easy");
@@ -375,53 +378,42 @@ public class ClassroomDefenseFrame extends JFrame
             gameScreenPanel.setComponentZOrder(towerSpaces.get(i), 0);
         }
     }
+    public void makeEnemies(ArrayList<Enemy> enemies)
+    {
+        for (int i=0;i<enemies.size();i++)
+        {
+            enemies.get(i).setBounds(200, 0, 50, 50);
+            enemies.get(i).setVisible(true);
+            gameScreenPanel.add(enemies.get(i));
+            gameScreenPanel.setComponentZOrder(enemies.get(i), 0);
+        }
+    }
+    public void moveEnemies(ArrayList<Enemy> enemies)
+    {
+        for (int i=0;i<enemies.size();i++)
+        {
+            relocate(enemies.get(i), enemies.get(i).getX(), enemies.get(i).getY());
+        }
+    }
+    public void relocate(Enemy e, int x, int y)
+    {
+        if (y<350)
+        {
+           y=y+10;
+        }
+        else if (y==350&&x<500)
+        {
+           x=x+10;
+        }
+        else if (x==500)
+        {
+            y=y+10;
+        }
+        e.setBounds(x, y, 50, 50);
+    }
     public static void main(String[] args)
     {
         @SuppressWarnings("unused")
         JFrame testFrame = new ClassroomDefenseFrame();
     }
 }
-//@Override
-//    public void paintComponent(Graphics g)
-//    {
-//        super.paintComponent(g);
-//    
-//        if ( y<300)
-//        {
-//           y=y+10;
-//           
-//        }
-//        if ( y>=300 && x<=500)
-//        {
-//           x=x+10;
-//           
-//        }
-//        if (x>=500)
-//        {
-//            
-//            y=y+10;
-//        }
-//        
-//       
-//        
-//        
-//        g.fillRect(x, y, 20,20);
-//        
-//    }
-//
-//    @Override
-//    public void actionPerformed(ActionEvent ae) 
-//    {
-//        Object obj = ae.getSource();
-//        if(obj == b1)
-//        {
-//            t1.start(); // t1.stop();  t1.setDelay(500);
-//        }
-//        if(obj == t1)
-//        {
-//            repaint(); //call paintComponent
-//            //paintComponent is in charge of updating x and y 
-//            // and drawing a rectangle
-//        }
-//        
-//    }
